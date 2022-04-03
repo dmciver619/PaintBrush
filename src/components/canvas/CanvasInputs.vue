@@ -5,9 +5,9 @@
 
 
         <label>Canvas Dimensions</label>
-        <input v-model="numberOfCellsInRow" type="number" />
+        <input v-model="numberOfCellsInRow" v-on:change="dimensionsUpdated" type="number" />
         x
-        <input v-model="numberOfRows" type="number" />
+        <input v-model="numberOfRows" v-on:change="dimensionsUpdated" type="number" />
     </div>
 </template>
 
@@ -17,14 +17,17 @@ export default {
     name: 'CanvasInputs',
     data() {
         return {
-            paintBrushColour: '#FFFFFF',
-            numberOfCellsInRow: 4,
-            numberOfRows: 5
+            paintBrushColour: '#000000',
+            numberOfCellsInRow: 50,
+            numberOfRows: 20
         }
     },
     methods: {
         colourUpdated: function () {
             this.$emit("paintBrushColourChanged", this.paintBrushColour);
+        },
+        dimensionsUpdated: function () {
+            this.$emit("dimensionsChanged", { numberOfCellsInRow: this.numberOfCellsInRow, numberOfRows: this.numberOfRows });
         }
     }
 }

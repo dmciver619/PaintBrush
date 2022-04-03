@@ -1,7 +1,7 @@
 <template>
     <div id="canvas">
-        <div v-for="row in 3" v-bind:key="row" class="canvas-row">
-            <CanvasCell v-for="rowCell in 4" v-bind:key="rowCell" :paintBrushColour="paintBrushColour"></CanvasCell>
+        <div v-for="row in numberOfRows" v-bind:key="row" class="canvas-row">
+            <CanvasCell v-for="rowCell in numberOfCellsInRow" v-bind:key="rowCell" :paintBrushColour="paintBrushColour"></CanvasCell>
         </div>
     </div>
 </template>
@@ -23,12 +23,24 @@
                 default() {
                     return '#FFFFFF'
                 }
-            }
-        },
-        data() {
-            return {
-                numberRows: 5,
-                numberCellsPerRow: 10
+            },
+            numberOfCellsInRow: {
+                type: Number,
+                validator(numberOfCellsInRow) {
+                    return numberOfCellsInRow > 0;
+                },
+                default() {
+                    return 50;
+                }
+            },
+            numberOfRows: {
+                type: Number,
+                validator(numberOfRows) {
+                    return numberOfRows > 0;
+                },
+                default() {
+                    return 20;
+                }
             }
         }
 }

@@ -1,6 +1,8 @@
 <template>
-    <BaseCanvas :paintBrushColour="paintBrushColour"></BaseCanvas>
-    <CanvasInputs @paintBrushColourChanged="setColour($event)"></CanvasInputs>
+    <CanvasInputs @paintBrushColourChanged="setColour($event)" @dimensionsChanged="setCanvasDimensions($event)"></CanvasInputs>
+    <div class="canvas center">
+        <BaseCanvas :paintBrushColour="paintBrushColour" :numberOfCellsInRow="numberOfCellsInRow" :numberOfRows="numberOfRows"></BaseCanvas>
+    </div>
 </template>
 
 <script>
@@ -15,14 +17,29 @@
         },
         data() {
             return {
-                paintBrushColour: '#FFFFFF'
+                paintBrushColour: '#000000',
+                numberOfCellsInRow: 50,
+                numberOfRows: 20
             }
         },
         methods: {
             setColour: function (colour) {
                 this.paintBrushColour = colour;
+            },
+            setCanvasDimensions: function (dimensions) {
+                this.numberOfCellsInRow = dimensions.numberOfCellsInRow;
+                this.numberOfRows = dimensions.numberOfRows;
             }
         }
     }
 </script>
 
+<style>
+    .center {
+        display: flex;
+        justify-content:center;
+    }
+    .canvas {
+        margin: 10px;
+    }
+</style>
