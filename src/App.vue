@@ -1,11 +1,16 @@
 <template>
     <h1>Paint Brush App</h1>
+    <Canvas></Canvas>
 </template>
 
 <script>
+import Canvas from './components/canvas/Canvas.vue'
 
 export default {
-  name: 'App'
+    name: 'App',
+    components: {
+        Canvas
+    }
 }
 </script>
 
