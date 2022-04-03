@@ -33,7 +33,16 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+        "vue/multi-word-component-names": [
+            "error",
+            {
+                "ignores": [ "Canvas" ]
+            }
+        ],
+        "no-debugger": "off",
+        "no-console": "off"
+    }
   },
   "browserslist": [
     "> 1%",
