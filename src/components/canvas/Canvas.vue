@@ -1,7 +1,7 @@
 <template>
     <CanvasInputs @paintBrushColourChanged="setColour($event)" @dimensionsChanged="setCanvasDimensions($event)"></CanvasInputs>
     <div class="canvas center">
-        <BaseCanvas :paintBrushColour="paintBrushColour" :numberOfCellsInRow="numberOfCellsInRow" :numberOfRows="numberOfRows"></BaseCanvas>
+        <BaseCanvas :settings="settings" :paintBrushColour="paintBrushColour" :numberOfCellsInRow="numberOfCellsInRow" :numberOfRows="numberOfRows"></BaseCanvas>
     </div>
 </template>
 
@@ -14,6 +14,17 @@
         components: {
             BaseCanvas,
             CanvasInputs
+        },
+        props: {
+            settings: {
+                type: Object,
+                default() {
+                    return {
+                        brushSize: 'small',
+                        cellSize: 'large'
+                    }
+                }
+            }
         },
         data() {
             return {

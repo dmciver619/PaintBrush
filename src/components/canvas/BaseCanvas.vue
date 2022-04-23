@@ -1,7 +1,7 @@
 <template>
     <div id="canvas">
         <div v-for="row in numberOfRows" v-bind:key="row" class="canvas-row">
-            <CanvasCell v-for="rowCell in numberOfCellsInRow" v-bind:key="rowCell" :paintBrushColour="paintBrushColour"></CanvasCell>
+            <CanvasCell v-for="rowCell in numberOfCellsInRow" v-bind:key="rowCell" :cellSize="cellSize" :paintBrushColour="paintBrushColour"></CanvasCell>
         </div>
     </div>
 </template>
@@ -40,6 +40,37 @@
                 },
                 default() {
                     return 20;
+                }
+            },
+            settings: {
+                type: Object,
+                default() {
+                    return {
+                        brushSize: 'small',
+                        cellSize: 'large'
+                    }
+                }
+            }
+        },
+        computed: {
+            brushSize() {
+                switch (this.settings.cellSize) {
+                    case 'small':
+                        return 1;
+                    case 'medium':
+                        return 3;
+                    default:
+                        return 5;
+                }
+            },
+            cellSize() {
+                switch (this.settings.cellSize) {
+                    case 'small':
+                        return 5;
+                    case 'medium':
+                        return 10;
+                    default:
+                        return 20;
                 }
             }
         }

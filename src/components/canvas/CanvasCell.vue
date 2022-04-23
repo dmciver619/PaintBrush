@@ -15,6 +15,12 @@
                 default() {
                     return '#FFFFFF'
                 }
+            },
+            cellSize: {
+                type: Number,
+                default() {
+                    return 20;
+                }
             }
         },
         data() {
@@ -35,7 +41,7 @@
 <style>
     .canvas-cell {
         border: solid 1px black;
-        height: 20px;
-        width: 20px;
+        height: v-bind(cellSize + 'px');
+        width: v-bind(cellSize + 'px');
     }
 </style>

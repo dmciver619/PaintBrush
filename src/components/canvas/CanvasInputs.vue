@@ -34,9 +34,5 @@ export default {
 </script>
 
 <style>
-    .canvas-cell {
-        border: solid 1px black;
-        height: 20px;
-        width: 20px;
-    }
+
 </style>
