@@ -1,5 +1,5 @@
 <template>
-    <div id="canvas">
+    <div id="canvas" @click="paint" @mouseover="paint">
         <div v-for="row in numberOfRows" v-bind:key="row" class="canvas-row">
             <CanvasCell v-for="rowCell in numberOfCellsInRow" v-bind:key="rowCell" :cellSize="cellSize" :paintBrushColour="paintBrushColour"></CanvasCell>
         </div>
@@ -71,6 +71,13 @@
                         return 10;
                     default:
                         return 20;
+                }
+            }
+        },
+        methods: {
+            paint: function () {
+                if (event.buttons == 1 || event.type == 'click') {
+                    event.target.style.backgroundColor = this.paintBrushColour;
                 }
             }
         }

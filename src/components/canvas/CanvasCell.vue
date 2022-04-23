@@ -1,5 +1,5 @@
 <template>
-    <div class="canvas-cell" :style="{ background: colour }" @mouseover="paint()" v-on:click="paint()"></div>
+    <div class="canvas-cell"></div>
 </template>
 
 <script>
@@ -20,18 +20,6 @@
                 type: Number,
                 default() {
                     return 20;
-                }
-            }
-        },
-        data() {
-            return {
-                colour: '#FFFFFF'
-            }
-        },
-        methods: {
-            paint: function () {
-                if (event.buttons == 1 || event.type == 'click') {
-                    this.colour = this.paintBrushColour
                 }
             }
         }
