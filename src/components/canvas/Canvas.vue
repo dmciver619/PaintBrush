@@ -21,6 +21,7 @@
                 default() {
                     return {
                         brushSize: 'small',
+                        brushShape: 'normal',
                         cellSize: 'large'
                     }
                 }

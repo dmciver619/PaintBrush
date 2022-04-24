@@ -18,6 +18,7 @@
             return {
                 settings: {
                     brushSize: 'small',
+                    brushShape: 'normal',
                     cellSize: 'large'
                 }
             }

@@ -39,6 +39,20 @@
                         </div>
                     </div>
                 </fieldset>
+                <br />
+                <fieldset>
+                    <legend>Paint Brush Shape</legend>
+                    <div class="row">
+                        <div>
+                            <input v-model="brushShape" @change="changeSetting" id="normalBrush" type="radio" name="brushShape" value="normal" />
+                            <label for="normalBrush">Normal Brush</label>
+                        </div>
+                        <div>
+                            <input v-model="brushShape" @change="changeSetting" id="squareBrush" type="radio" name="brushShape" value="square" />
+                            <label for="squareBrush">Square Brush</label>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -58,6 +72,7 @@
                 default() {
                     return {
                         brushSize: 'small',
+                        brushShape: 'normal',
                         cellSize: 'large'
                     }
                 }
@@ -67,13 +82,15 @@
             return {
                 isOpen: false,
                 cellSize: this.settings.cellSize,
-                brushSize: this.settings.brushSize
+                brushSize: this.settings.brushSize,
+                brushShape: this.settings.brushShape
             }
         },
         computed: {
             settingsModel() {
                 return {
                     brushSize: this.brushSize,
+                    brushShape: this.brushShape,
                     cellSize: this.cellSize
                 }
             }
