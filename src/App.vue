@@ -1,18 +1,20 @@
 <template>
     <SideBar :settings="settings" @settingsChanged="settings = $event" ref="sideBar"></SideBar>
-    <h1>Paint Brush App</h1>
-    <Canvas :settings="settings"></Canvas>
+    <Canvas></Canvas>
+    <StickyFooter></StickyFooter>
 </template>
 
 <script>
     import Canvas from './components/canvas/Canvas.vue'
     import SideBar from './components/nav/SideBar.vue'
+    import StickyFooter from './components/nav/StickyFooter.vue'
 
     export default {
         name: 'App',
         components: {
             Canvas,
-            SideBar
+            SideBar,
+            StickyFooter
         },
         data() {
             return {

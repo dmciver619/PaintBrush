@@ -1,12 +1,13 @@
 <template>
-    <div id="canvas" @click="paint" @mouseover="paint">
-        <div v-for="row in numberOfRows" :key="row" class="canvas-row">
-            <CanvasCell :id="row + '-' + rowCell" v-for="rowCell in numberOfCellsInRow" :key="rowCell" :cellSize="cellSize" :paintBrushColour="paintBrushColour"></CanvasCell>
+    <div id="canvas" @click="paint" @mouseover="paint" draggable="false" ondragstart="return false;" ondrop="return false;">
+        <div v-for="row in settings.numberOfRows" :key="row" class="canvas-row">
+            <CanvasCell :id="row + '-' + rowCell" v-for="rowCell in settings.numberOfCellsInRow" :key="rowCell"></CanvasCell>
         </div>
     </div>
 </template>
 
 <script>
+    import { settingsStore } from '../stores/settingsStore';
     import CanvasCell from './CanvasCell'
 
     export default {
@@ -14,43 +15,17 @@
         components: {
             CanvasCell
         },
-        props: {
-            paintBrushColour: {
-                type: String,
-                validator(colour) {
-                    return colour.length == 7; // e.g. '#FF00FF'
-                },
-                default() {
-                    return '#FFFFFF'
-                }
-            },
-            numberOfCellsInRow: {
-                type: Number,
-                validator(numberOfCellsInRow) {
-                    return numberOfCellsInRow > 0;
-                },
-                default() {
-                    return 50;
-                }
-            },
-            numberOfRows: {
-                type: Number,
-                validator(numberOfRows) {
-                    return numberOfRows > 0;
-                },
-                default() {
-                    return 20;
-                }
-            },
-            settings: {
-                type: Object,
-                default() {
-                    return {
-                        brushSize: 'small',
-                        brushShape: 'normal',
-                        cellSize: 'large'
-                    }
-                }
+        setup() {
+            const settings = settingsStore();
+
+            return {
+                settings
+            }
+        },
+        data() {
+            return {
+                numberOfCellsInRow: this.settings.numberOfCellsInRow,
+                numberOfRows: this.settings.numberOfRows
             }
         },
         computed: {
@@ -100,7 +75,9 @@
                 }
             },
             paintCell: function (cellToPaint) {
-                cellToPaint.style.backgroundColor = this.paintBrushColour;
+                if (cellToPaint) {
+                    cellToPaint.style.backgroundColor = this.settings.brushColour;
+                }
             },
             paintRadius: function (centreCell, canvas, radius) {
                 // Coords of centreCell (-1 to take into account index starting at 0)
@@ -166,7 +143,15 @@
                 return true;
             },
             getCellByIndex: function (canvas, xIndex, yIndex) {
-                return canvas.children.item(yIndex).children.item(xIndex);
+                // Validate get request
+                var xIndexIsValid = xIndex >= 0 && xIndex < this.settings.numberOfCellsInRow;
+                var yIndexIsValid = yIndex >= 0 && yIndex < this.settings.numberOfRows;
+                if (!xIndexIsValid || !yIndexIsValid) {
+                    return;
+                }
+
+                var rows = canvas.children;
+                return rows.item(yIndex).children.item(xIndex);
             }
         }
     }

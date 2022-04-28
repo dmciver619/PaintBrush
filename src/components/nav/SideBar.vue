@@ -6,21 +6,6 @@
         <div id="sideNav" class="sidenav">
             <CloseButton class="close-btn" @clicked="closeSideBar"></CloseButton>
             <div class="contentWrapper">
-                <fieldset>
-                    <legend>Brush Size</legend>
-                    <div>
-                        <input v-model="brushSize" @change="changeSetting" id="smallBrush" type="radio" name="brushSize" value="small" />
-                        <label for="smallBrush">Small</label>
-                    </div>
-                    <div>
-                        <input v-model="brushSize" @change="changeSetting" id="mediumBrush" type="radio" name="brushSize" value="medium" />
-                        <label for="mediumBrush">Medium</label>
-                    </div>
-                    <div>
-                        <input v-model="brushSize" @change="changeSetting" id="largeBrush" type="radio" name="brushSize" value="large" />
-                        <label for="largeBrush">Large</label>
-                    </div>
-                </fieldset>
                 <br />
                 <fieldset>
                     <legend>Paint Cell Size</legend>
@@ -40,25 +25,28 @@
                     </div>
                 </fieldset>
                 <br />
-                <fieldset>
-                    <legend>Paint Brush Shape</legend>
-                    <div class="row">
-                        <div>
-                            <input v-model="brushShape" @change="changeSetting" id="normalBrush" type="radio" name="brushShape" value="normal" />
-                            <label for="normalBrush">Normal Brush</label>
-                        </div>
-                        <div>
-                            <input v-model="brushShape" @change="changeSetting" id="squareBrush" type="radio" name="brushShape" value="square" />
-                            <label for="squareBrush">Square Brush</label>
-                        </div>
+
+                <div>
+                    <label>Canvas Dimensions</label>
+                    <div style="display:flex; justify-content:space-between;">
+                        <label>
+                            X-axis
+                            <input v-model="numberOfCellsInRow" @change="changeIntSetting" name="numberOfCellsInRow" type="number" />
+                        </label>
+                        <label>
+                            Y-axis
+                            <input v-model="numberOfRows" @change="changeIntSetting" name="numberOfRows" type="number" />
+                        </label>
                     </div>
-                </fieldset>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { settingsStore } from '../stores/settingsStore'
+
     import CloseButton from '../common/CloseButton'
 
     export default {
@@ -66,16 +54,11 @@
         components: {
             CloseButton
         },
-        props: {
-            settings: {
-                type: Object,
-                default() {
-                    return {
-                        brushSize: 'small',
-                        brushShape: 'normal',
-                        cellSize: 'large'
-                    }
-                }
+        setup() {
+            const settings = settingsStore();
+
+            return {
+                settings
             }
         },
         data() {
@@ -83,16 +66,9 @@
                 isOpen: false,
                 cellSize: this.settings.cellSize,
                 brushSize: this.settings.brushSize,
-                brushShape: this.settings.brushShape
-            }
-        },
-        computed: {
-            settingsModel() {
-                return {
-                    brushSize: this.brushSize,
-                    brushShape: this.brushShape,
-                    cellSize: this.cellSize
-                }
+                brushShape: this.settings.brushShape,
+                numberOfCellsInRow: this.settings.numberOfCellsInRow,
+                numberOfRows: this.settings.numberOfRows
             }
         },
         methods: {
@@ -112,7 +88,10 @@
                 document.getElementById("sideNavToggle").style.transform = "translateX(250px)";
             },
             changeSetting: function () {
-                this.$emit('settingsChanged', this.settingsModel);
+                this.settings.setSetting(event.currentTarget.name, event.currentTarget.value);
+            },
+            changeIntSetting: function () {
+                this.settings.setSetting(event.currentTarget.name, parseInt(event.currentTarget.value));
             }
         }
     }
@@ -165,7 +144,6 @@
 
     }
 
-
     .sidebar-option {
         cursor: pointer;
     }
@@ -173,10 +151,24 @@
     .row {
         overflow-x: hidden;
         white-space:nowrap;
+        width: 250px;
+        margin-left: auto;
+    }
+
+    .row > input[type="number"] {
+        padding: 0;
     }
 
     input {
         max-width: 80px;
+    }
+
+    input[type="number"] {
+        width: 60px;
+    }
+
+    span {
+        margin: auto;
     }
 
     input[type="radio"] {
