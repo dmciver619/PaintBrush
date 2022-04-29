@@ -156,9 +156,3 @@
         }
     }
 </script>
-
-<style>
-    .canvas-row {
-        display: flex;
-    }
-</style>

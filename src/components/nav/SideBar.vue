@@ -1,15 +1,15 @@
 <template>
     <div v-click-outside="closeSideBar">
-        <div id="sideNavToggle" class="sideBarToggleWrap">
-            <span class="sideBarToggle" @click="toggle">&#9776;</span>
+        <div id="sideNavToggle" class="side-bar-toggle-wrap">
+            <span class="side-bar-toggle" @click="toggle">&#9776;</span>
         </div>
-        <div id="sideNav" class="sidenav">
+        <div id="sideNav" class="side-bar">
             <CloseButton class="close-btn" @clicked="closeSideBar"></CloseButton>
-            <div class="contentWrapper">
+            <div class="side-bar-content">
                 <br />
                 <fieldset>
                     <legend>Paint Cell Size</legend>
-                    <div class="row">
+                    <div class="form">
                         <div>
                             <input v-model="cellSize" @change="changeSetting" id="smallCell" type="radio" name="cellSize" value="small" />
                             <label for="smallCell">Small</label>
@@ -19,8 +19,8 @@
                             <label for="mediumCell">Medium</label>
                         </div>
                         <div>
-                            <input v-model="cellSize" @change="changeSetting" id="mediumCell" type="radio" name="cellSize" value="large" />
-                            <label for="mediumCell">Large</label>
+                            <input v-model="cellSize" @change="changeSetting" id="largeCell" type="radio" name="cellSize" value="large" />
+                            <label for="largeCell">Large</label>
                         </div>
                     </div>
                 </fieldset>
@@ -28,7 +28,7 @@
 
                 <div>
                     <label>Canvas Dimensions</label>
-                    <div style="display:flex; justify-content:space-between;">
+                    <div class="form-inline">
                         <label>
                             X-axis
                             <input v-model="numberOfCellsInRow" @change="changeIntSetting" name="numberOfCellsInRow" type="number" />
@@ -96,82 +96,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .close-btn {
-        position:fixed;
-        float: right;
-        position: relative;
-        top: -15px;
-        right:5px;
-    }
-
-    .contentWrapper {
-        width: 100%;
-        padding: 30px 10px 10px 10px;
-    }
-
-
-    .sideBarToggle {
-        font-size: 30px;
-        color: antiquewhite;
-        cursor: pointer;
-        display: flex;
-    }
-
-    .sideBarToggleWrap {
-        display: flex;
-        justify-content: center;
-        background-color: saddlebrown;
-        border-radius: 0 5px 5px 0;
-        width: 40px;
-        height: 40px;
-        transition: 0.5s;
-    }
-
-
-    .sidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: saddlebrown;
-        overflow-x: hidden;
-        transition: 0.5s;
-        white-space: nowrap;
-
-    }
-
-    .sidebar-option {
-        cursor: pointer;
-    }
-
-    .row {
-        overflow-x: hidden;
-        white-space:nowrap;
-        width: 250px;
-        margin-left: auto;
-    }
-
-    .row > input[type="number"] {
-        padding: 0;
-    }
-
-    input {
-        max-width: 80px;
-    }
-
-    input[type="number"] {
-        width: 60px;
-    }
-
-    span {
-        margin: auto;
-    }
-
-    input[type="radio"] {
-        margin: 0 10px;
-    }
-</style>

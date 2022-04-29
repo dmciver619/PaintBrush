@@ -1,0 +1,12 @@
+@import './overlays.scss';
+@import './forms.scss';
+@import './canvas.scss';
+
+:root {
+    --panel-colors: saddlebrown;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}

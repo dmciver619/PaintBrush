@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: calc(50% - 20px);
+}
+
+.form-inline {
+    display: flex;
+    justify-content: space-evenly;
+
+    input {
+        max-width: 50px;
+    }
+}
+
+.close-btn {
+    position: fixed;
+    float: right;
+    position: relative;
+    top: -15px;
+    right: 5px;
+}

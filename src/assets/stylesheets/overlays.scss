@@ -1,0 +1,71 @@
+/** General Clases **/
+.overlay {
+    background-color: var(--panel-colors);
+}
+
+/** Footer-specific classes**/
+.sticky-footer {
+    position: sticky;
+    bottom: 0;
+    height: 150px;
+    width: 75%;
+    color: antiquewhite;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+
+    .sticker-footer-item {
+        border-right: 1px solid antiquewhite;
+
+        &:last-of-type {
+            border-right: none;
+        }
+    }
+}
+
+/**Sidebar-Specific Classes**/
+
+.side-bar-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    background-color: saddlebrown;
+    border-radius: 0 5px 5px 0;
+    width: 40px;
+    height: 40px;
+    transition: 0.5s;
+
+    .side-bar-toggle {
+        font-size: 30px;
+        color: antiquewhite;
+        cursor: pointer;
+        display: flex;
+    }
+
+}
+
+.side-bar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: saddlebrown;
+    overflow-x: hidden;
+    transition: 0.5s;
+    white-space: nowrap;
+
+
+    .side-bar-content {
+        width: 100%;
+        padding: 30px 10px 10px 10px;
+    }
+
+
+    .row {
+        overflow-x: hidden;
+        white-space: nowrap;
+        width: 250px;
+        margin-left: auto;
+    }
+}
